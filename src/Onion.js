@@ -1,8 +1,10 @@
 import React from 'react';
+import { getDownloadUrl } from './fortepan-api';
 
 import './Onion.css';
 
-export default ({imageSrc, rotation, rightEyeX, rightEyeY}) => {
+export default ({fortepanObject, rotation, rightEyeX, rightEyeY}) => {
+  const imageSrc = getDownloadUrl(fortepanObject.filename);
 
   return (
     <div className="onion">

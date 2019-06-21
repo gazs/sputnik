@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { getDownloadUrl } from './fortepan-api';
 
 import './Wiggler.css';
 
-export default ({imageSrc, rotation, rightEyeX, rightEyeY}) => {
+export default ({fortepanObject, rotation, rightEyeX, rightEyeY}) => {
   const ref = useRef();
   const [isEnlarged, setEnlarged] =  useState(false);
+
+  const imageSrc = getDownloadUrl(fortepanObject.filename);
 
   useEffect(() => {
     window.a = ref.current.animate([
