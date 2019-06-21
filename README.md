@@ -1,9 +1,13 @@
 # TODO
 
 CLIENT:
-- remote storage
+- rotate eyes independently
+- non-square crops
+- search pagination
+- filter out non-stereo images?? why are results bad
+- remote storage of offsets
 - loading states
-- pretty
+- make pretty & nice to use
 
 
 SERVER!!!:

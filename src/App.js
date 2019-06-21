@@ -49,6 +49,9 @@ function App() {
     <label>Y <input type="number" value={state.rightEyeY} onChange={x=>dispatch({type: 'rightEyeY', value: x.target.valueAsNumber})} /></label>
     <label>rotation  <input type="number" value={state.rotation} onChange={x=>dispatch({type: 'rotation', value: x.target.valueAsNumber})} /></label>
       <Onion {...state} />
+      <p>{state.fortepanObject.title}, {state.fortepanObject.year}</p>
+      <p>{state.fortepanObject.city}, {state.fortepanObject.country}</p>
+      <p>{state.fortepanObject.label}</p>
     </div>
     <div className="fl w-20 pa2">
       <Wiggler {...state}/>
