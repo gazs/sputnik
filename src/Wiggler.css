@@ -1,0 +1,13 @@
+.wiggler {
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.wiggler img {
+  width: 200%;
+  position: absolute;
+  transform-origin: center;
+  max-width: initial;
+}
+

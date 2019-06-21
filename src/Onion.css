@@ -1,0 +1,13 @@
+.onion {
+  width: 1000px;
+  height: 1000px;
+  overflow: hidden;
+  position: relative;
+}
+.onion img {
+  width: 200%;
+  position: absolute;
+  transform-origin: center;
+  opacity: 0.5;
+  max-width: initial;
+}
