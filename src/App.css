@@ -1,0 +1,19 @@
+.controls {
+    text-align: center;
+    margin: 20px auto;
+}
+
+.workspace {
+    display: flex;
+    justify-content: center;
+}
+
+.onion-container,
+.wiggler-container {
+    flex-grow: 1;
+}
+
+.fortepan-item {
+    display: inline-block;
+    margin: 5px;
+}

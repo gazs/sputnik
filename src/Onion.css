@@ -1,6 +1,6 @@
 .onion {
-  width: 1000px;
-  height: 1000px;
+  width: 50vw;
+  height: 50vw;
   overflow: hidden;
   position: relative;
 }
