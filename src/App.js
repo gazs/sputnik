@@ -2,6 +2,7 @@ import React, { useReducer, useEffect } from 'react';
 import './App.css';
 import Wiggler from './Wiggler';
 import Onion from './Onion';
+import Anaglyph from './Anaglyph';
 import List from './List';
 
 const initialState = {
@@ -48,7 +49,7 @@ function App() {
     <label>X <input type="number" value={state.rightEyeX} onChange={x=>dispatch({type: 'rightEyeX', value: x.target.valueAsNumber})} /></label>
     <label>Y <input type="number" value={state.rightEyeY} onChange={x=>dispatch({type: 'rightEyeY', value: x.target.valueAsNumber})} /></label>
     <label>rotation  <input type="number" value={state.rotation} onChange={x=>dispatch({type: 'rotation', value: x.target.valueAsNumber})} /></label>
-      <Onion {...state} />
+      <Anaglyph {...state} />
       <p>{state.fortepanObject.title}, {state.fortepanObject.year}</p>
       <p>{state.fortepanObject.city}, {state.fortepanObject.country}</p>
       <p>{state.fortepanObject.label}</p>
