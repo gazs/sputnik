@@ -47,7 +47,7 @@ export default ({fortepanObject, rotation, rightEyeX, rightEyeY}) => {
     clipPath="url(#left)"
     />
   <use href="#image"
-    transform={`translate(${rightEyeX} ${rightEyeY})`}
+    transform={`translate(${rightEyeX} ${console.log(rightEyeY) || (rightEyeY/2)})`}
     style={{mixBlendMode: "screen"}}
     filter="url(#cyan)"
     clipPath="url(#right)"

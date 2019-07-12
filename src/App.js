@@ -1,4 +1,6 @@
 import React, { useReducer, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
 import './App.css';
 import Wiggler from './Wiggler';
 import Onion from './Onion';
@@ -29,36 +31,43 @@ function reducer(state, action) {
   }
 }
 
-function App() {
-  const [ state, dispatch ] = useReducer(reducer, initialState);
 
 
-  useEffect(
-    () => {
-      window.localStorage.setItem(state.fortepanObject.filename, JSON.stringify(state));
-    },
-    [state]
-  );
+function Viewer({match}) {
+  const fortepanObject =  {
+      filename: match.params.id || 27587
+  }
+  const [ state, dispatch ] = useReducer(reducer, {
+    rightEyeX: -500,
+    rightEyeY: 0,
+    rotation: 0
+  });
+
 
   return (
     <>
     <div className="fl w-10 pa2 vh-100 overflow-y-scroll">
-      <List onClick={x=>dispatch({type: 'fortepanObject', value: x})} />
+      <List />
     </div>
     <div className="fl w-70 pa2">
     <label>X <input type="number" value={state.rightEyeX} onChange={x=>dispatch({type: 'rightEyeX', value: x.target.valueAsNumber})} /></label>
     <label>Y <input type="number" value={state.rightEyeY} onChange={x=>dispatch({type: 'rightEyeY', value: x.target.valueAsNumber})} /></label>
     <label>rotation  <input type="number" value={state.rotation} onChange={x=>dispatch({type: 'rotation', value: x.target.valueAsNumber})} /></label>
-      <Anaglyph {...state} />
-      <p>{state.fortepanObject.title}, {state.fortepanObject.year}</p>
-      <p>{state.fortepanObject.city}, {state.fortepanObject.country}</p>
-      <p>{state.fortepanObject.label}</p>
+      <Anaglyph {...state} fortepanObject={fortepanObject} />
     </div>
     <div className="fl w-20 pa2">
-      <Wiggler {...state}/>
+      <Wiggler {...state} fortepanObject={fortepanObject}/>
     </div>
     </>
   );
+}
+
+const App = () => {
+    return (
+      <Router>
+        <Route path="/:id?" component={Viewer} />
+      </Router>
+    )
 }
 
 export default App;
