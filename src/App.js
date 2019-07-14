@@ -46,17 +46,33 @@ function Viewer({match}) {
 
   return (
     <>
-    <div className="fl w-10 pa2 vh-100 overflow-y-scroll">
-      <List />
+    <div className="dash">
+        <div className="controls">
+            <label>X <input type="number" value={state.rightEyeX} onChange={x=>dispatch({type: 'rightEyeX', value: x.target.valueAsNumber})} /></label>
+            <label>Y <input type="number" value={state.rightEyeY} onChange={x=>dispatch({type: 'rightEyeY', value: x.target.valueAsNumber})} /></label>
+            <label>rotation  <input type="number" value={state.rotation} onChange={x=>dispatch({type: 'rotation', value: x.target.valueAsNumber})} /></label>
+        </div>
+
+        <div className="workspace">
+            <div className="onion-container">
+                <Anaglyph {...state} fortepanObject={fortepanObject} />
+                {/*
+                    These don't appear on pageload because the state hasn't loaded them yet
+                    <div className="onion-caption">
+                    <p>{state.fortepanObject.title}, {state.fortepanObject.year}</p>
+                    <p>{state.fortepanObject.city}, {state.fortepanObject.country}</p>
+                    <p>{state.fortepanObject.label}</p>
+                </div> */}
+            </div>
+              {/*
+            <div className="wiggler-container">
+                <Wiggler {...state} fortepanObject={fortepanObject}/>
+            </div>
+            */}
+        </div>
     </div>
-    <div className="fl w-70 pa2">
-    <label>X <input type="number" value={state.rightEyeX} onChange={x=>dispatch({type: 'rightEyeX', value: x.target.valueAsNumber})} /></label>
-    <label>Y <input type="number" value={state.rightEyeY} onChange={x=>dispatch({type: 'rightEyeY', value: x.target.valueAsNumber})} /></label>
-    <label>rotation  <input type="number" value={state.rotation} onChange={x=>dispatch({type: 'rotation', value: x.target.valueAsNumber})} /></label>
-      <Anaglyph {...state} fortepanObject={fortepanObject} />
-    </div>
-    <div className="fl w-20 pa2">
-      <Wiggler {...state} fortepanObject={fortepanObject}/>
+    <div className="fortepan-selector">
+        <List />
     </div>
     </>
   );

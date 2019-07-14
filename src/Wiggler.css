@@ -1,5 +1,6 @@
 .wiggler {
-  height: 100vh;
+  height: 50vw;
+  width: 50vw;
   overflow: hidden;
   position: relative;
 }

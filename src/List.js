@@ -37,7 +37,7 @@ export default ({query="sztereófotó", onClick}) => {
     <>
     <div>
         {results.results.map(x =>
-          <div key={x.filename}>
+          <div className="fortepan-item" key={x.filename}>
             <Link to={`/${x.filename}`}>
               <img alt={x.title} title={x.title} src={getThumbnailUrl(x.filename)}/>
             </Link>
