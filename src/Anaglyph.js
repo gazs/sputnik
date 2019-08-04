@@ -12,6 +12,7 @@ export default ({fortepanObject, rotation, rightEyeX, rightEyeY}) => {
       id="image"
       xlinkHref={imageSrc}
       width="200%"
+      height="100%"
     />
     <filter id="red">
       <feColorMatrix type="matrix" values="1  0  0 0 0
