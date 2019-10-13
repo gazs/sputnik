@@ -3,23 +3,24 @@ import styled, { css, keyframes } from 'styled-components';
 import { getDownloadUrl } from './fortepan-api';
 
 const Wrapper = styled.div`
-  height: 600px;
-  width: 600px;
+  height: ${props => props.height}px;
+  width: ${props => props.width}px;
   overflow: hidden;
   position:relative;
+  border: 1px solid #ddd;
 `
 
 const LeftEye = styled.img`
-  width: ${props => props.width * 2}px;
-  height: ${props => props.height}px;
+  width: ${props => 600 * 2}px;
+ /* height: ${props => 600}px; */
   position: absolute;
   max-width: initial;
 
   transform-origin: ${props => props.width / 2}px ${props => props.height/2}px;
   transform:
     rotate(${props => props.rotateAngle}deg)
-    translateX(${props => props.left}px)
-    translateY(${props => props.top}px);
+    translateX(${props => -1 * props.left}px)
+    translateY(${props => -1 * props.top}px);
 `
 
 const rightEye = keyframes`
@@ -37,15 +38,16 @@ const RightEye = styled(LeftEye)`
   transform:
     rotate(${props => props.rotateAngle}deg)
     translateX(${props => -1 * props.left}px)
-    translateY(${props => props.top}px);
+    translateY(${props => -1 * props.top}px);
 `
 
 export default ({fortepanObject, left, right, width, height, showOverlay}) => {
 
-  const imageSrc = getDownloadUrl(fortepanObject.filename);
+  const imageSrc = `http://fortepan.hu/_photo/display/${fortepanObject.filename}.jpg`
+  
 
   return (
-    <Wrapper>
+    <Wrapper width={width} height={height}>
       <LeftEye alt="wiggle stereoscopy left"
         src={imageSrc}
         left={left.left}
@@ -61,7 +63,6 @@ export default ({fortepanObject, left, right, width, height, showOverlay}) => {
         width={width}
         height={height}
         rotateAngle={right.rotateAngle}
-      
       />
     </Wrapper>
   );

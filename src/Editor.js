@@ -8,30 +8,45 @@ import Wiggler from './Wiggler';
 const Wrapper = styled.div`
 position:relative;
 top: 30px;
+width: 1200px;
+height: 600px;
 `
 
 const Photo = styled.img`
 width: 1200px;
+height: auto;
+border: 1px solid #666;
 `
 
-class App extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      showOverlay: false,
-      width: 600,
-      height: 600,
-      left: {
-        top: 0,
-        left: 0,
-        rotateAngle: 0
-      },
-      right: {
-        top: 0,
-        left: 600,
-        rotateAngle: 0
-      },
+class Editor extends React.Component {
+  constructor(props) {
+    super(props)
+    const savedStateJson = localStorage.getItem(props.filename)
+    if (savedStateJson) {
+      this.state = JSON.parse(savedStateJson)
+    } else {
+      this.state = {
+        showOverlay: false,
+        width: 600,
+        height: 600,
+        left: {
+          top: 0,
+          left: 0,
+          rotateAngle: 0
+        },
+        right: {
+          top: 0,
+          left: 600,
+          rotateAngle: 0
+        },
+      }
     }
+  }
+
+  setStateAndSave(state) {
+    this.setState(state, () =>
+      localStorage.setItem(this.props.filename, JSON.stringify(this.state))
+    );
   }
 
   handleResize = (which, style, isShiftKey, type) => {
@@ -42,8 +57,9 @@ class App extends React.Component {
     left = Math.round(left)
     width = Math.round(width)
     height = Math.round(height)
-    this.setState({
+    this.setStateAndSave({
       [which]: {
+        ...this.state[which],
         top,
         left,
       },
@@ -53,14 +69,14 @@ class App extends React.Component {
   }
 
   handleRotate = (which, rotateAngle) => {
-    this.setState({[which]: {
+    this.setStateAndSave({[which]: {
       ...this.state[which],
       rotateAngle
     }})
   }
 
   handleDrag = (which, deltaX, deltaY) => {
-    this.setState({[which]: {
+    this.setStateAndSave({[which]: {
       ...this.state[which],
       left: this.state[which].left + deltaX,
       top: this.state[which].top + deltaY
@@ -100,10 +116,17 @@ class App extends React.Component {
           />
         )}
         <Photo
-          src="http://fortepan.hu/_photo/display/27283.jpg"
+          src={`http://fortepan.hu/_photo/display/${this.props.filename}.jpg`}
           />
+
+      <div>
+        {['left', 'right'].flatMap(eye => 
+        ['left', 'top', 'width', 'height', 'rotateAngle'].map(i =>
+          <label key={`${eye}-${i}`}>{i}<input type="number" value={this.state[eye][i]} /></label>
+        ))}
+      </div>
         </Wrapper>
-          <Wiggler fortepanObject={{filename: '27283'}}
+          <Wiggler fortepanObject={{filename: this.props.filename}}
             showOverlay={this.state.showOverlay}
             left={left}
             right={right}
@@ -112,6 +135,30 @@ class App extends React.Component {
           />
       </div >
     )
+  }
+}
+
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      currentImage: 0
+    }
+  }
+  render() {
+  const images = [
+    27283,
+    93371,
+    27587
+  ]
+  const filename = images[this.state.currentImage]
+
+    return <>
+    <button disabled={this.state.currentImage === 0} onClick={()=> this.setState({currentImage: this.state.currentImage -1})}>prev</button>
+    {filename}
+    <button disabled={this.state.currentImage + 1 === images.length} onClick={()=> this.setState({currentImage: this.state.currentImage +1})}>next</button>
+    <Editor filename={filename} key={filename}/>
+    </>
   }
 }
 

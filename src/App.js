@@ -1,6 +1,6 @@
 import React, { useReducer, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import Viewer from './Viewer';
+import Viewer from './NewViewer';
 import Editor from './Editor';
 
 const App = () => {
