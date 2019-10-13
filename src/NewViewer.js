@@ -1,5 +1,9 @@
 import React from 'react';
 import Wiggler from './Wiggler';
+import { Link } from 'react-router-dom'
+
+
+import FortepanData from './bla';
 
 class Viewer extends React.Component {
   constructor(props) {
@@ -26,10 +30,12 @@ class Viewer extends React.Component {
     }
   }
   render() {
-  console.log('HI')
+    const fortepanData = FortepanData.find(x => x.filename === this.props.match.params.id)
 
     return <>
-          <Wiggler fortepanObject={{filename: this.props.match.params.id || 27587}}
+      <h1>{fortepanData.title}</h1>
+      <Link to={`/editor/${this.props.match.params.id}`}>edit</Link>
+          <Wiggler fortepanObject={fortepanData}
             showOverlay={false}
             left={this.state.left}
             right={this.state.right}

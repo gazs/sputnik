@@ -1,6 +1,5 @@
 import React from 'react';
 import styled, { css, keyframes } from 'styled-components';
-import { getDownloadUrl } from './fortepan-api';
 
 const Wrapper = styled.div`
   height: ${props => props.height}px;
@@ -11,8 +10,9 @@ const Wrapper = styled.div`
 `
 
 const LeftEye = styled.img`
-  width: ${props => 600 * 2}px;
- /* height: ${props => 600}px; */
+  /* pixel width & height of original image */
+  width: 1200px; 
+  height: ${props => (+props.fortepanObject.height / +props.fortepanObject.width) * 1200}px;
   position: absolute;
   max-width: initial;
 
@@ -54,6 +54,7 @@ export default ({fortepanObject, left, right, width, height, showOverlay}) => {
         top={left.top}
         width={width}
         height={height}
+        fortepanObject={fortepanObject}
         rotateAngle={left.rotateAngle}
         />
       <RightEye alt="wiggle stereoscopy right" src={imageSrc}
@@ -62,6 +63,7 @@ export default ({fortepanObject, left, right, width, height, showOverlay}) => {
         top={right.top}
         width={width}
         height={height}
+        fortepanObject={fortepanObject}
         rotateAngle={right.rotateAngle}
       />
     </Wrapper>

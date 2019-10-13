@@ -1,7 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 import ResizableRect from 'react-resizable-rotatable-draggable'
 import partial from 'lodash/partial';
 import styled from 'styled-components';
+import FortepanData from './bla';
 
 import Wiggler from './Wiggler';
 
@@ -23,7 +25,10 @@ class Editor extends React.Component {
     super(props)
     const savedStateJson = localStorage.getItem(props.filename)
     if (savedStateJson) {
-      this.state = JSON.parse(savedStateJson)
+      this.state = {
+        ...JSON.parse(savedStateJson),
+        showOverlay: false
+      };
     } else {
       this.state = {
         showOverlay: false,
@@ -91,6 +96,8 @@ class Editor extends React.Component {
 
   render() {
     const { width, height, left, right } = this.state;
+    const fortepanData = FortepanData.find(x => x.filename === this.props.filename)
+    console.log(fortepanData)
     return (
     
       <div className="App">
@@ -120,13 +127,16 @@ class Editor extends React.Component {
           />
 
       <div>
-        {['left', 'right'].flatMap(eye => 
-        ['left', 'top', 'width', 'height', 'rotateAngle'].map(i =>
-          <label key={`${eye}-${i}`}>{i}<input type="number" value={this.state[eye][i]} /></label>
-        ))}
+        {['left', 'right'].map(eye => 
+          <div><b>{eye}</b>
+          {['left', 'top', 'width', 'height', 'rotateAngle'].map(i =>
+            <label key={`${eye}-${i}`}>{i}<input type="number" value={this.state[eye][i]} /></label>
+          )}
+        </div>
+        )}
       </div>
         </Wrapper>
-          <Wiggler fortepanObject={{filename: this.props.filename}}
+          <Wiggler fortepanObject={fortepanData}
             showOverlay={this.state.showOverlay}
             left={left}
             right={right}
@@ -151,12 +161,10 @@ class App extends React.Component {
     93371,
     27587
   ]
-  const filename = images[this.state.currentImage]
+  const filename = this.props.match.params.id
 
     return <>
-    <button disabled={this.state.currentImage === 0} onClick={()=> this.setState({currentImage: this.state.currentImage -1})}>prev</button>
-    {filename}
-    <button disabled={this.state.currentImage + 1 === images.length} onClick={()=> this.setState({currentImage: this.state.currentImage +1})}>next</button>
+      <Link to={`/photo/${this.props.match.params.id}`}>view</Link>
     <Editor filename={filename} key={filename}/>
     </>
   }
