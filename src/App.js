@@ -2,6 +2,7 @@ import React, { useReducer, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Viewer from './NewViewer';
 import Editor from './Editor';
+import Anaglyph from './Anaglyph';
 
 class App extends React.Component {
   constructor(props) {
@@ -26,6 +27,7 @@ class App extends React.Component {
       <Router>
         <Route path="/editor/:id?" component={Editor} />
         <Route path="/photo/:id?" component={Viewer} />
+        <Route path="/anaglyph/:id?" component={Anaglyph} />
       </Router>
   </>
   }

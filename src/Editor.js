@@ -127,10 +127,19 @@ class Editor extends React.Component {
           />
 
       <div>
-        {['left', 'right'].map(eye => 
-          <div><b>{eye}</b>
+        {['left', 'right'].map(which=> 
+          <div><b>{which}</b>
           {['left', 'top', 'width', 'height', 'rotateAngle'].map(i =>
-            <label key={`${eye}-${i}`}>{i}<input type="number" value={this.state[eye][i]} /></label>
+            <label key={`${which}-${i}`}>{i}
+              <input type="number"
+                value={this.state[which][i]}
+                onChange={(e) => { 
+    this.setStateAndSave({[which]: {
+      ...this.state[which],
+      [i]: e.target.valueAsNumber
+    }})
+ }}
+                /></label>
           )}
         </div>
         )}
@@ -151,17 +160,9 @@ class Editor extends React.Component {
 class App extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      currentImage: 0
-    }
   }
   render() {
-  const images = [
-    27283,
-    93371,
-    27587
-  ]
-  const filename = this.props.match.params.id
+    const filename = this.props.match.params.id;
 
     return <>
       <Link to={`/photo/${this.props.match.params.id}`}>view</Link>

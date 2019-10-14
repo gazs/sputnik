@@ -11,8 +11,12 @@ const Wrapper = styled.div`
 
 const LeftEye = styled.img`
   /* pixel width & height of original image */
+  /*
   width: 1200px; 
   height: ${props => (+props.fortepanObject.height / +props.fortepanObject.width) * 1200}px;
+  */
+  width: -moz-max-content;
+  height: -moz-max-content;
   position: absolute;
   max-width: initial;
 
