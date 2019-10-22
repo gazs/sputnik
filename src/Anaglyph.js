@@ -4,7 +4,7 @@ import { getDownloadUrl } from './fortepan-api';
 import FortepanData from './bla';
 
 
-class Anaglyph extends React.Component {
+export class Anaglyph extends React.Component {
   constructor(props) {
     super(props)
     const savedStateJson = localStorage.getItem(props.filename)
@@ -41,8 +41,10 @@ class Anaglyph extends React.Component {
   const rightEyeX = this.state.right.left / 1200 * 1000;
   const rightEyeY = this.state.right.top / 1200 * 1000;
 
+  const isWiggle = false //true;
+
   return (
-<svg viewBox="0 0 500 500" height="90vh">
+<svg viewBox="0 0 500 500" height="90vh" style={{display: 'block', margin: '0 auto'}}>
   <defs>
     <image
       id="image"
@@ -81,15 +83,23 @@ class Anaglyph extends React.Component {
   </defs>
   <use href="#image"
     transform={`translate(${-1 * leftEyeX} ${(-1 * leftEyeY)})`}
-    filter="url(#red)"
+    {...(!isWiggle && {filter: "url(#red)"})}
     clipPath="url(#left)"
     />
   <use href="#image"
     transform={`translate(${-1 * rightEyeX} ${(-1 * rightEyeY)})`}
-    style={{mixBlendMode: "screen"}}
-    filter="url(#cyan)"
+    {...(!isWiggle && {
+      style:{mixBlendMode: "screen"},
+      filter:"url(#cyan)"
+    })}
     clipPath="url(#right)"
-    />
+    >
+    {isWiggle && 
+    <animate attributeName="opacity"
+      values="0;1;0" dur="0.3s"
+      repeatCount="indefinite"/>
+    }
+    </use>
 </svg>
   );
   }
@@ -103,9 +113,9 @@ class App extends React.Component {
     const filename = this.props.match.params.id;
 
     return <>
-      <Link to={`/photo/${this.props.match.params.id}`}>view</Link>
-      <Link to={`/editor/${this.props.match.params.id}`}>edit</Link>
-      <Anaglyph filename={filename} key={filename}/>
+      <li><Link to={`/${this.props.match.params.id}/edit`}>edit</Link></li>
+      <li><Link to={`/${this.props.match.params.id}/wiggle`}>wiggle</Link></li>
+      <Anaglyph filename={filename} key={filename} isWiggle={false}/>
     </>
   }
 }

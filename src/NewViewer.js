@@ -34,7 +34,8 @@ class Viewer extends React.Component {
 
     return <>
       <h1>{fortepanData.title}</h1>
-      <Link to={`/editor/${this.props.match.params.id}`}>edit</Link>
+      <Link to={`/${this.props.match.params.id}/edit`}>edit</Link>
+      <Link to={`/${this.props.match.params.id}/anaglyph`}>anaglyph</Link>
           <Wiggler fortepanObject={fortepanData}
             showOverlay={false}
             left={this.state.left}

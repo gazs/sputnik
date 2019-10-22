@@ -165,7 +165,8 @@ class App extends React.Component {
     const filename = this.props.match.params.id;
 
     return <>
-      <Link to={`/photo/${this.props.match.params.id}`}>view</Link>
+      <Link to={`/${this.props.match.params.id}/wiggle`}>wiggle</Link>
+      <Link to={`/${this.props.match.params.id}/anaglyph`}>anaglyph</Link>
     <Editor filename={filename} key={filename}/>
     </>
   }

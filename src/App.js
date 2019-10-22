@@ -19,15 +19,10 @@ class App extends React.Component {
   ]
   const filename = images[this.state.currentImage]
   return <>
-  <a href={`/editor/${images[this.state.currentImage-1]}`}>prev</a>
-
-    {filename}
-
-  <a href={`/editor/${images[this.state.currentImage+1]}`}>next</a>
       <Router>
-        <Route path="/editor/:id?" component={Editor} />
-        <Route path="/photo/:id?" component={Viewer} />
-        <Route path="/anaglyph/:id?" component={Anaglyph} />
+        <Route path="/:id/edit" component={Editor} />
+        <Route path="/:id/wiggle" component={Viewer} />
+        <Route path="/:id/anaglyph" component={Anaglyph} />
       </Router>
   </>
   }
