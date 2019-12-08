@@ -1,9 +1,9 @@
 import React from 'react';
-import Wiggler from './Wiggler';
 import { Link } from 'react-router-dom'
 
 
-import FortepanData from './bla';
+import Wiggler from '../components/Wiggler';
+import FortepanData from '../fortepan-data';
 
 class Viewer extends React.Component {
   constructor(props) {
