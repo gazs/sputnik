@@ -6,6 +6,8 @@ import FortepanData from "../fortepan-data";
 
 import Anaglyph from '../components/Anaglyph';
 
+import './Anaglyph.css';
+
 
 class App extends React.Component {
   constructor(props) {
@@ -32,6 +34,8 @@ class App extends React.Component {
         }
       };
     }
+
+    this.state.isWiggle = false;
   }
   render() {
     const filename = this.props.match.params.id;
@@ -41,24 +45,35 @@ class App extends React.Component {
 
     return (
       <>
-        <Anaglyph
-          imageSrc={imageSrc}
-          key={imageSrc}
-          left={this.state.left}
-          right={this.state.right}
-          isWiggle={false}
-        />
+      <div className="anaglyph-viewer">
+        <div className="image">
+          <Anaglyph
+            imageSrc={imageSrc}
+            key={imageSrc}
+            left={this.state.left}
+            right={this.state.right}
+            isWiggle={this.state.isWiggle}
+          />
+        </div>
+        <div className="info">
+          <label>
+            <input type="checkbox" value={this.state.isWiggle} onChange={() => this.setState({...this.state, isWiggle: !this.state.isWiggle})} />
+            wiggle
+          </label>
+          <h1>{fortepanData.title}</h1>
+          <div>year: {fortepanData.year}</div>
+          <div>Country: {fortepanData.country}</div>
+          <div>City: {fortepanData.city}</div>
+          <div>Donor: {fortepanData.donor}</div>
+          { console.table(fortepanData) }
+        </div>
+      </div>
+
         <li>
           <Link to={`/`}>home</Link>
         </li>
         <li>
-          <Link to={`/${this.props.match.params.id}/edit`}>edit</Link>
-        </li>
-        <li>
-          <Link to={`/${this.props.match.params.id}/wiggle`}>wiggle</Link>
-        </li>
-        <li>
-          <Link to={`/${this.props.match.params.id}/anaglyph`}>anaglyph</Link>
+          <Link to={`edit`}>edit</Link>
         </li>
       </>
     );
