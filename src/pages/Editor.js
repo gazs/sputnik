@@ -168,7 +168,7 @@ class Editor extends React.Component {
             right={right}
             width={width}
             height={height}
-            isWiggle={true}
+            isWiggle={!this.state.showOverlay}
           />
         </AnaglyphWrapper>
 
