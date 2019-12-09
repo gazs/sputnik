@@ -69,7 +69,11 @@ class App extends React.Component {
           <div>Country: {fortepanData.country}</div>
           <div>City: {fortepanData.city}</div>
           <div>Donor: {fortepanData.donor}</div>
+          {fortepanData.label.split('| ').map(label => <span key={label}>{label} /  </span>)}
           <Link to={`/${filename}/edit`}>edit</Link>
+          <div>
+          <a href={`http://fortepan.hu/?image_id=${filename}`}>fortepan</a>
+          </div>
         </div>
       </div>
 
