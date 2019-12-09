@@ -6,7 +6,7 @@ import styled from "styled-components";
 
 import FortepanData from "../fortepan-data";
 
-import Wiggler from "../components/Wiggler";
+import Anaglyph from "../components/Anaglyph";
 
 const Wrapper = styled.div`
   position: relative;
@@ -14,6 +14,10 @@ const Wrapper = styled.div`
   width: 1200px;
   max-height: 600px;
 `;
+
+const AnaglyphWrapper = styled.div`
+  width: 600px;
+`
 
 const Photo = styled.img`
   width: 1200px;
@@ -157,14 +161,17 @@ class Editor extends React.Component {
           />
 
         </Wrapper>
-        <Wiggler
-          fortepanObject={fortepanData}
-          showOverlay={this.state.showOverlay}
-          left={left}
-          right={right}
-          width={width}
-          height={height}
-        />
+        <AnaglyphWrapper>
+          <Anaglyph
+            imageSrc={`http://fortepan.hu/_photo/display/${this.props.filename}.jpg`}
+            left={left}
+            right={right}
+            width={width}
+            height={height}
+            isWiggle={true}
+          />
+        </AnaglyphWrapper>
+
       </div>
     );
   }

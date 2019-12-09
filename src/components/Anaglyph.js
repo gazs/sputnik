@@ -9,7 +9,7 @@ const Anaglyph = ({ imageSrc, left, right, width, height, isWiggle }) => {
       style={{ display: "block", margin: "0 auto", background: "black" }}
     >
       <defs>
-        <image id="image" xlinkHref={imageSrc} width="1200" height="489" />
+        <image id="image" xlinkHref={imageSrc} width="1200" />
         <filter id="red">
           <feColorMatrix
             type="matrix"
@@ -30,11 +30,11 @@ const Anaglyph = ({ imageSrc, left, right, width, height, isWiggle }) => {
         </filter>
         <clipPath id="left">
           <rect x={left.left} y={left.top} width={width} height={height} 
-           transform={`rotate(${left.rotateAngle} ${left.left} ${left.top})`}/>
+           transform={`rotate(${left.rotateAngle} ${left.left+width/2} ${left.top+height/2})`}/>
         </clipPath>
         <clipPath id="right">
           <rect x={right.left} y={right.top} width={width} height={width}
-           transform={`rotate(${left.rotateAngle} ${right.left} ${right.top})`}/>
+           transform={`rotate(${left.rotateAngle} ${right.left+width/2} ${right.top+height/2})`}/>
           />
         </clipPath>
       </defs>
@@ -42,8 +42,9 @@ const Anaglyph = ({ imageSrc, left, right, width, height, isWiggle }) => {
         href="#image"
         {...(!isWiggle && { filter: "url(#red)" })}
         clipPath="url(#left)"
-        transform={`translate(-${left.left} -${left.top})`}
-      />
+        transform={`translate(-${left.left} -${left.top}) `}
+      >
+      </use>
       <use
         href="#image"
         {...(!isWiggle && {

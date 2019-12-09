@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Viewer from "./pages/Viewer";
 import Editor from "./pages/Editor";
 import Anaglyph from "./pages/Anaglyph";
 import Home from "./pages/Home";
