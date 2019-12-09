@@ -104,9 +104,33 @@ class Editor extends React.Component {
     const fortepanData = FortepanData.find(
       x => x.filename === this.props.filename
     );
-    console.log(fortepanData);
     return (
       <div className="App">
+          <div>
+            {["left", "right"].map(which => (
+              <div>
+                <b>{which}</b>
+                {["left", "top", "width", "height", "rotateAngle"].map(i => (
+                  <label key={`${which}-${i}`}>
+                    {i}
+                    <input
+                      type="number"
+                      step={i === "rotateAngle" ? "0.2" : "1"}
+                      value={this.state[which][i]}
+                      onChange={e => {
+                        this.setStateAndSave({
+                          [which]: {
+                            ...this.state[which],
+                            [i]: e.target.valueAsNumber
+                          }
+                        });
+                      }}
+                    />
+                  </label>
+                ))}
+              </div>
+            ))}
+          </div>
         <Wrapper>
           {["left", "right"].map(eye => (
             <ResizableRect
@@ -133,31 +157,6 @@ class Editor extends React.Component {
           />
 
         </Wrapper>
-          <div>
-            {["left", "right"].map(which => (
-              <div>
-                <b>{which}</b>
-                {["left", "top", "width", "height", "rotateAngle"].map(i => (
-                  <label key={`${which}-${i}`}>
-                    {i}
-                    <input
-                      type="number"
-                      step={i === "rotateAngle" ? "0.2" : "1"}
-                      value={this.state[which][i]}
-                      onChange={e => {
-                        this.setStateAndSave({
-                          [which]: {
-                            ...this.state[which],
-                            [i]: e.target.valueAsNumber
-                          }
-                        });
-                      }}
-                    />
-                  </label>
-                ))}
-              </div>
-            ))}
-          </div>
         <Wiggler
           fortepanObject={fortepanData}
           showOverlay={this.state.showOverlay}
@@ -177,8 +176,8 @@ class App extends React.Component {
 
     return (
       <>
-        <Link to={`/${this.props.match.params.id}/wiggle`}>wiggle</Link>
-        <Link to={`/${this.props.match.params.id}/anaglyph`}>anaglyph</Link>
+        <Link to={`/`}>home</Link> | 
+        <Link to={`/${this.props.match.params.id}`}>view</Link>
         <Editor filename={filename} key={filename} />
       </>
     );

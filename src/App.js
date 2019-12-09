@@ -12,8 +12,7 @@ class App extends React.Component {
         <Router>
           <Switch>
             <Route path="/:id/edit" component={Editor} />
-            <Route path="/:id/wiggle" component={Viewer} />
-            <Route path="/:id/anaglyph" component={Anaglyph} />
+            <Route path="/:id" component={Anaglyph} />
             <Route path="/" component={Home} />
           </Switch>
         </Router>

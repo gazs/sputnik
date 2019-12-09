@@ -36,6 +36,7 @@ class App extends React.Component {
     }
 
     this.state.isWiggle = false;
+    this.state.isFullScreen = true;
   }
   render() {
     const filename = this.props.match.params.id;
@@ -45,14 +46,17 @@ class App extends React.Component {
 
     return (
       <>
+      <Link to={`/`}>home</Link>
       <div className="anaglyph-viewer">
-        <div className="image">
+        <div className={`image ${this.state.isFullScreen ? 'fullscreen' : ''}`}>
           <Anaglyph
             imageSrc={imageSrc}
             key={imageSrc}
             left={this.state.left}
             right={this.state.right}
             isWiggle={this.state.isWiggle}
+            width={this.state.width}
+            height={this.state.height}
           />
         </div>
         <div className="info">
@@ -65,16 +69,10 @@ class App extends React.Component {
           <div>Country: {fortepanData.country}</div>
           <div>City: {fortepanData.city}</div>
           <div>Donor: {fortepanData.donor}</div>
-          { console.table(fortepanData) }
+          <Link to={`/${filename}/edit`}>edit</Link>
         </div>
       </div>
 
-        <li>
-          <Link to={`/`}>home</Link>
-        </li>
-        <li>
-          <Link to={`edit`}>edit</Link>
-        </li>
       </>
     );
   }

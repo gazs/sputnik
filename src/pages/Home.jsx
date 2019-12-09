@@ -12,7 +12,7 @@ const Home = () => {
   return <div className="grid">
     {FortepanData.slice(480).map(x =>
     <div key={x.filename}>
-      <Link to={`${x.filename}/anaglyph`}>
+      <Link to={`${x.filename}`}>
         <img alt={x.title} src={`http://fortepan.hu/_photo/display/${x.filename}.jpg`} />
       </Link>
     </div>
