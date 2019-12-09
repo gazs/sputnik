@@ -5,10 +5,8 @@ import Home from "./pages/Home";
 
 const Editor = React.lazy(() => import("./pages/Editor"));
 
-class App extends React.Component {
-  render() {
+const App = () => {
     return (
-      <>
         <Router>
           <Switch>
             <Route path="/:id/edit" component={({...props}) => 
@@ -20,9 +18,7 @@ class App extends React.Component {
             <Route path="/" component={Home} />
           </Switch>
         </Router>
-      </>
     );
   }
-}
 
 export default App;

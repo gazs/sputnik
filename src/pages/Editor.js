@@ -4,8 +4,8 @@ import ResizableRect from "react-resizable-rotatable-draggable";
 import partial from "lodash/partial";
 import styled from "styled-components";
 
-import FortepanData from '../fortepan-data';
 import Anaglyph from "../components/Anaglyph";
+import Layout from './Layout';
 
 const Wrapper = styled.div`
   position: relative;
@@ -104,16 +104,20 @@ class Editor extends React.Component {
 
   render() {
     const { width, height, left, right } = this.state;
-    const fortepanData = FortepanData.find(
-      x => x.filename === this.props.filename
-    );
     return (
-      <div className="App">
+      <>
           <div>
+            <label key="width">width <input type="number" value={this.state.width} onChange={e=> {
+              this.setStateAndSave({width: e.target.valueAsNumber})
+            }}/></label>
+            <label key="height">height<input type="number" value={this.state.height} onChange={e=> {
+              this.setStateAndSave({height: e.target.valueAsNumber})
+            }}/></label>
+
             {["left", "right"].map(which => (
               <div key={which}>
                 <b>{which}</b>
-                {["left", "top", "width", "height", "rotateAngle"].map(i => (
+                {["left", "top", "width", "rotateAngle"].map(i => (
                   <label key={`${which}-${i}`}>
                     {i}
                     <input
@@ -171,7 +175,7 @@ class Editor extends React.Component {
           />
         </AnaglyphWrapper>
 
-      </div>
+      </>
     );
   }
 }
@@ -181,11 +185,10 @@ class App extends React.Component {
     const filename = this.props.match.params.id;
 
     return (
-      <>
-        <Link to={`/`}>home</Link> | 
+      <Layout>
         <Link to={`/${this.props.match.params.id}`}>view</Link>
         <Editor filename={filename} key={filename} />
-      </>
+      </Layout>
     );
   }
 }
