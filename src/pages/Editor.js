@@ -4,8 +4,7 @@ import ResizableRect from "react-resizable-rotatable-draggable";
 import partial from "lodash/partial";
 import styled from "styled-components";
 
-import FortepanData from "../fortepan-data";
-
+import FortepanData from '../fortepan-data';
 import Anaglyph from "../components/Anaglyph";
 
 const Wrapper = styled.div`
@@ -112,7 +111,7 @@ class Editor extends React.Component {
       <div className="App">
           <div>
             {["left", "right"].map(which => (
-              <div>
+              <div key={which}>
                 <b>{which}</b>
                 {["left", "top", "width", "height", "rotateAngle"].map(i => (
                   <label key={`${which}-${i}`}>

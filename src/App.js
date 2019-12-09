@@ -1,8 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Editor from "./pages/Editor";
 import Anaglyph from "./pages/Anaglyph";
 import Home from "./pages/Home";
+
+const Editor = React.lazy(() => import("./pages/Editor"));
 
 class App extends React.Component {
   render() {
@@ -10,7 +11,11 @@ class App extends React.Component {
       <>
         <Router>
           <Switch>
-            <Route path="/:id/edit" component={Editor} />
+            <Route path="/:id/edit" component={({...props}) => 
+              <React.Suspense fallback={<div>Loading</div>}>
+                <Editor {...props} />
+              </React.Suspense>
+            } />
             <Route path="/:id" component={Anaglyph} />
             <Route path="/" component={Home} />
           </Switch>
