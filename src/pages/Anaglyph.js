@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import { getDownloadUrl } from "../fortepan-api";
 import FortepanData from "../fortepan-data";
+import defaultAlignments from '../alignments.json';
 
 import Layout from './Layout';
 import Anaglyph from '../components/Anaglyph';
@@ -14,11 +15,12 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     const savedStateJson = localStorage.getItem(this.props.match.params.id);
-    console.log(props.filename, savedStateJson);
     if (savedStateJson) {
       this.state = {
         ...JSON.parse(savedStateJson)
       };
+    } else if (defaultAlignments[this.props.match.params.id]) {
+      this.state = JSON.parse(defaultAlignments[this.props.match.params.id])
     } else {
       this.state = {
         width: 600,
