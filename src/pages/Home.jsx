@@ -13,8 +13,12 @@ const Home = () => {
   return (
     <Layout>
       <div className="grid">
-        {FortepanData.slice(page * 9, page * 9 + 9).map(x => (
-          <div key={x.filename}>
+        {FortepanData
+        .filter(x => !localStorage.getItem(x.filename))
+        .slice(page * 9, page * 9 + 9)
+        .map(x => {
+          const isCalibrated = !!localStorage.getItem(x.filename);
+          return <div key={x.filename} className={`${isCalibrated ? 'calibrated' : 'uncalibrated'}`}>
             <Link to={`${x.filename}`}>
               <img
                 alt={x.title}
@@ -22,7 +26,7 @@ const Home = () => {
               />
             </Link>
           </div>
-        ))}
+        })})}
       </div>
       <button onClick={() => setPage(page - 1)}>prev</button>
       <button onClick={() => setPage(page + 1)}>next</button>

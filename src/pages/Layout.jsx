@@ -5,7 +5,7 @@ const Layout = ({children}) => {
   return (
     <>
     <div className="header">
-      <Link to="/"><img src="/logo.png" /></Link>
+      <Link to="/">home</Link>
     </div>
     {children}
     </>

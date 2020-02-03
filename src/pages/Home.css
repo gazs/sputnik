@@ -14,3 +14,10 @@ body {
   object-fit:cover;
   object-position: left;
 }
+
+.grid .calibrated {
+  background: green;
+}
+.grid .uncalibrated {
+  background: red;
+}

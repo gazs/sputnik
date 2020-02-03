@@ -117,7 +117,7 @@ class Editor extends React.Component {
             {["left", "right"].map(which => (
               <div key={which}>
                 <b>{which}</b>
-                {["left", "top", "width", "rotateAngle"].map(i => (
+                {["left", "top", "rotateAngle"].map(i => (
                   <label key={`${which}-${i}`}>
                     {i}
                     <input

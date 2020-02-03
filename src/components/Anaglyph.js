@@ -33,18 +33,20 @@ const Anaglyph = ({ imageSrc, left, right, width, height, isWiggle }) => {
            transform={`rotate(${left.rotateAngle} ${left.left+width/2} ${left.top+height/2})`}/>
         </clipPath>
         <clipPath id="right">
-          <rect x={right.left} y={right.top} width={width} height={width}
+          <rect x={right.left} y={right.top} width={width} height={height}
            transform={`rotate(${left.rotateAngle} ${right.left+width/2} ${right.top+height/2})`}/>
           />
         </clipPath>
       </defs>
+      <g>
       <use
         href="#image"
         {...(!isWiggle && { filter: "url(#red)" })}
         clipPath="url(#left)"
-        transform={`translate(-${left.left} -${left.top}) `}
+        transform={`translate(${-1* left.left} ${-1* left.top}) `}
       >
       </use>
+      </g>
       <use
         href="#image"
         {...(!isWiggle && {
@@ -52,7 +54,7 @@ const Anaglyph = ({ imageSrc, left, right, width, height, isWiggle }) => {
           filter: "url(#cyan)"
         })}
         clipPath="url(#right)"
-        transform={`translate(-${right.left} -${right.top})`}
+        transform={`translate(${-1* right.left} ${-1* right.top})`}
       >
         {isWiggle && (
           <animate
