@@ -5,7 +5,7 @@ import partial from "lodash/partial";
 import styled from "styled-components";
 
 import Anaglyph from "../components/Anaglyph";
-import Layout from './Layout';
+import Layout from "./Layout";
 
 const Wrapper = styled.div`
   position: relative;
@@ -16,7 +16,7 @@ const Wrapper = styled.div`
 
 const AnaglyphWrapper = styled.div`
   width: 600px;
-`
+`;
 
 const Photo = styled.img`
   width: 1200px;
@@ -49,6 +49,12 @@ class Editor extends React.Component {
           rotateAngle: 0
         }
       };
+    }
+  }
+
+  onPhotoLoaded(e) {
+    if (this.state.height === 600) {
+      this.setState({ ...this.state, height: e.currentTarget.naturalHeight });
     }
   }
 
@@ -106,38 +112,52 @@ class Editor extends React.Component {
     const { width, height, left, right } = this.state;
     return (
       <>
-          <div>
-            <label key="width">width <input type="number" value={this.state.width} onChange={e=> {
-              this.setStateAndSave({width: e.target.valueAsNumber})
-            }}/></label>
-            <label key="height">height<input type="number" value={this.state.height} onChange={e=> {
-              this.setStateAndSave({height: e.target.valueAsNumber})
-            }}/></label>
+        <div>
+          <label key="width">
+            width{" "}
+            <input
+              type="number"
+              value={this.state.width}
+              onChange={e => {
+                this.setStateAndSave({ width: e.target.valueAsNumber });
+              }}
+            />
+          </label>
+          <label key="height">
+            height
+            <input
+              type="number"
+              value={this.state.height}
+              onChange={e => {
+                this.setStateAndSave({ height: e.target.valueAsNumber });
+              }}
+            />
+          </label>
 
-            {["left", "right"].map(which => (
-              <div key={which}>
-                <b>{which}</b>
-                {["left", "top", "rotateAngle"].map(i => (
-                  <label key={`${which}-${i}`}>
-                    {i}
-                    <input
-                      type="number"
-                      step={i === "rotateAngle" ? "0.2" : "1"}
-                      value={this.state[which][i]}
-                      onChange={e => {
-                        this.setStateAndSave({
-                          [which]: {
-                            ...this.state[which],
-                            [i]: e.target.valueAsNumber
-                          }
-                        });
-                      }}
-                    />
-                  </label>
-                ))}
-              </div>
-            ))}
-          </div>
+          {["left", "right"].map(which => (
+            <div key={which}>
+              <b>{which}</b>
+              {["left", "top", "rotateAngle"].map(i => (
+                <label key={`${which}-${i}`}>
+                  {i}
+                  <input
+                    type="number"
+                    step={i === "rotateAngle" ? "0.2" : "1"}
+                    value={this.state[which][i]}
+                    onChange={e => {
+                      this.setStateAndSave({
+                        [which]: {
+                          ...this.state[which],
+                          [i]: e.target.valueAsNumber
+                        }
+                      });
+                    }}
+                  />
+                </label>
+              ))}
+            </div>
+          ))}
+        </div>
         <Wrapper>
           {["left", "right"].map(eye => (
             <ResizableRect
@@ -161,8 +181,8 @@ class Editor extends React.Component {
           ))}
           <Photo
             src={`http://fortepan.hu/_photo/display/${this.props.filename}.jpg`}
+            onLoad={this.onPhotoLoaded.bind(this)}
           />
-
         </Wrapper>
         <AnaglyphWrapper>
           <Anaglyph
@@ -174,7 +194,6 @@ class Editor extends React.Component {
             isWiggle={!this.state.showOverlay}
           />
         </AnaglyphWrapper>
-
       </>
     );
   }
